@@ -1,0 +1,31 @@
+{
+  "name": "down-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "buildh": "parcel build homepage.pug --out-dir ../../../dist --no-content-hash --no-minify",
+    "builds": "parcel build service.pug --out-dir ../../../dist --no-content-hash --no-minify"
+  },
+  "dependencies": {
+    "agenda": "^3.1.0",
+    "chart.js": "^2.9.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "http-errors": "^1.7.3",
+    "lazysizes": "^5.2.0",
+    "mongoose": "^5.9.6",
+    "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
+    "nodemon": "^2.0.4",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "prettier": "2.0.5",
+    "sass": "^1.26.3"
+  }
+}

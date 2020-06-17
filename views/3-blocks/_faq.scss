@@ -1,0 +1,44 @@
+/** faq section **/
+
+.faq__header-text {
+  border-top: rgba(0, 0, 0, 0.4) 2px solid;
+}
+
+.faq__accordion {
+  width: 100%;
+  border-top: rgba(0, 0, 0, 0.14) 1px solid;
+  border-right: 0px;
+  border-bottom: 0px;
+  border-left: 0px;
+  background-color: #fff;
+  cursor: pointer;
+  padding: 0.75em 0;
+  text-align: left;
+  outline: none;
+}
+
+.faq__accordion-header-text {
+  margin: 0;
+}
+
+.faq__accordion-header-text::after {
+  content: '\002B';
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  float: right;
+  margin: 0 10px;
+}
+
+.faq__accordion-header-text_open::after {
+  content: "\2212";
+}
+
+/* Panel height must be adjusted by adding a class. */
+
+.faq__panel {
+  padding: 0;
+  background-color: #fff;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}

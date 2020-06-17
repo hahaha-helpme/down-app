@@ -1,0 +1,53 @@
+/** navigation **/
+.nav {
+  border-bottom: rgba(0, 0, 0, 0.14) 1px solid;
+  height: 3em;
+  display: flex;
+  align-items: center;
+}
+
+.nav__header-link {
+  margin: 0 0 0 5%;
+}
+
+.nav__logo-img {
+  display: inline-block;
+  height: 3em;
+  width: 3em;
+  cursor: pointer;
+}
+
+.nav__header-text {
+  display: inline-block;
+  font-size: 1.7em;
+  font-weight:500;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.nav__lang-country-flag {
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  right: 5.5em;
+}
+
+.nav__hamburger_position {
+  right: 1.5em;
+}
+
+// little bit of absolute shame css.. 
+@media screen and (min-width: 93em) {
+   .nav__logo-link {
+    margin-left: calc(10% + 1em);
+  }
+  .nav__lang-country-flag {
+    right: calc(10% + 6em);
+  }
+  .nav__hamburger_position {
+    right: calc(10% + 1.5em);
+  }
+  
+}

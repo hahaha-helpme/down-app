@@ -1,0 +1,14 @@
+.serviceDownGrid
+  each value in viewLocals.body.serviceDownGrid
+    .serviceDownGrid__container
+      a.serviceDownGrid__container-link(href= value.link)
+        .serviceDownGrid__line-up  
+          h3.serviceDownGrid__header-text!= value.header
+          if(value.status < 0.5)
+            .serviceDownGrid__pulse.serviceDownGrid__pulse_green
+          else if (value.status >= 0.5 && value.status <= 0.7)  
+            .serviceDownGrid__pulse.serviceDownGrid__pulse_orange
+          else if(value.status >= 0.7)
+            .serviceDownGrid__pulse.serviceDownGrid__pulse_red
+        .serviceDownGrid__img-container
+          img.serviceDownGrid__img.lazyload(data-src= value.img, alt= value.alt)

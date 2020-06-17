@@ -1,0 +1,39 @@
+/** about **/
+
+.about__header-text {
+  border-top: rgba(0, 0, 0, 0.4) 2px solid;
+}
+
+.breadcrumb {
+  padding: 0;
+  margin: 0.75em 0 0 0;
+  list-style: none;
+}
+
+.breadcrumb__crumb {
+  display: inline;
+}
+
+.breadcrumb__crumb+.breadcrumb__crumb:before {
+  padding: 0 0.5em;
+  color: #000;
+  content: "/\00a0";
+}
+
+.breadcrumb__crumb-link {
+  color: #785EF0;
+  text-decoration: none;
+}
+
+.breadcrumb__crumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb__crumb-link_black-dec {
+  color: #000;
+}
+
+.breadcrumb__crumb-link_black-dec:hover {
+  text-decoration: none;
+  cursor: default;
+}

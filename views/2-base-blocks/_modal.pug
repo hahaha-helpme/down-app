@@ -1,0 +1,68 @@
+.modal
+  .modal__content
+    .modal__hamburger-container
+      .hamburger.modal__hamburger.modal__hamburger_position.hamburger_open
+        span.hamburger__top-bun.hamburger__top-bun_open
+        span.hamburger__bottom-bun.hamburger__bottom-bun_open
+        
+    //- geoLocation
+    .modal__geoLocation-lists
+      ul.modal__geoLocation-list
+        .modal__geoLocation-introduction
+          h2.modal__geoLocation-header-text= viewLocals.body.modal.geolocation.text.header
+          p.modal__geoLocation-text
+            each value in viewLocals.body.modal.geolocation.text.paragraph
+              =value
+        each listValueLinks in viewLocals.body.modal.geolocation.flags
+          li.modal__geoLocation-list-item
+            img.modal__geoLocation-item-img(src= listValueLinks.img, alt= listValueLinks.alt)
+            a.modal__geoLocation-item-textlink(href= listValueLinks.link)= listValueLinks.anchor
+    
+    //- about
+    .modal__about(itemscope='', itemtype='https://schema.org/Organization')
+      h2.modal__about-header-text= viewLocals.body.modal.about.text.header
+      p.modal__about-text
+        img.modal__about-img(itemprop='logo',src= viewLocals.body.modal.about.images.logo, alt= viewLocals.body.modal.about.alt.logo)
+        each value in viewLocals.body.modal.about.text.paragraph
+          =value
+       
+    //- positionPushing
+    .modal__positionPushing-lists
+      - if (viewLocals.body.modal.positionPushing.flags)
+        ul.modal__positionPushing-list
+          .modal__positionPushing-introduction
+            h2.modal__positionPushing-header-text= viewLocals.body.modal.positionPushing.text.header
+            p.modal__positionPushing-text
+              each value in viewLocals.body.modal.positionPushing.text.paragraph
+                =value
+          each listValueLinks in viewLocals.body.modal.positionPushing.flags
+            li.modal__positionPushing-list-item
+              img.modal__positionPushing-item-img(src= listValueLinks.img, alt= listValueLinks.alt)
+              a.modal__positionPushing-item-textlink(href= listValueLinks.link)= listValueLinks.anchor
+    
+    //- countryAlternative
+    .modal__countryAlternative-lists
+      - if (viewLocals.body.modal.countryAlternative.flags) 
+        ul.modal__countryAlternative-list
+          .modal__countryAlternative-introduction
+            h2.modal__countryAlternative-header-text= viewLocals.body.modal.countryAlternative.text.header
+            p.modal__countryAlternative-text
+              each value in viewLocals.body.modal.countryAlternative.text.paragraph
+                =value
+          each listValueLinks in viewLocals.body.modal.countryAlternative.flags
+            li.modal__countryAlternative-list-item
+              img.modal__countryAlternative-item-img(src= listValueLinks.img, alt= listValueLinks.alt)
+              a.modal__countryAlternative-item-textlink(href= listValueLinks.link)= listValueLinks.anchor        
+
+   
+    //- reportProblem
+    .modal__reportProblem
+      h2.modal__reportProblem-header-text= viewLocals.body.modal.reportProblem.text.header
+      p.modal__reportProblem-text
+        each value in viewLocals.body.modal.reportProblem.text.paragraph
+          =value
+      .modal__reportProblem-description
+        input.modal__reportProblem-description-text(type='text', name='description', value='', required='')
+        button.modal__reportProblem-description-button(type='submit')= viewLocals.body.modal.reportProblem.text.button
+      
+  

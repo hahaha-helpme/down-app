@@ -1,0 +1,13 @@
+.commentsSection
+  h2.commentsSection__header-text= viewLocals.body.commentsSection.header
+  .just-comments.commentsSection__styling(
+  data-apikey='90037755-56ff-4c02-acaa-05bd84e8d56d',
+  data-locale= viewLocals.body.commentsSection.dataLocale,
+  data-recaptcha="true",
+  data-sort="desc",
+  data-pagesize="25",
+  data-hideattribution="true",
+  data-hidecommentheader="true",
+  data-enableemailnotifications="true"
+  )
+  script(defer='', src='https://just-comments.com/w2.js')

@@ -1,0 +1,63 @@
+//1-plugins
+@import '../../1-plugins/normalize/reset.scss';
+
+//2-base-blocks
+@import '../../2-base-blocks/base.scss';
+@import '../../2-base-blocks/modal.scss';
+
+//3-blocks
+@import '../../3-blocks/nav.scss';
+@import '../../3-blocks/header.scss';
+@import '../../3-blocks/faq.scss';
+@import '../../3-blocks/about.scss';
+@import '../../3-blocks/serviceDownGrid.scss';
+
+//4-shame
+@import '../../4-shame/hamburger.scss';
+
+// custom page specific css
+
+@media screen and (min-width: 65em) {
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "nav nav nav nav nav nav " 
+      "header header header header header header" 
+      "faq faq faq about about about" 
+      "dgrid dgrid dgrid dgrid dgrid dgrid";
+    grid-gap: 1em;
+  }
+
+  .nav {
+    grid-area: nav;
+  }
+  .header {
+    grid-area: header;
+  }
+  .faq {
+    grid-area: faq;
+  }
+  .about {
+    grid-area: about;
+  }
+  .serviceDownGrid {
+    grid-area: dgrid;
+  }
+
+}
+
+@media screen and (min-width: 80em) {
+  .grid {
+    display: grid;
+    grid-template-columns: 10% 1fr 1fr 1fr 1fr 1fr 1fr 10%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "nav nav nav nav nav nav nav nav" 
+      ". header header header header header header ." 
+      ". faq faq faq about about about ." 
+      ". dgrid dgrid dgrid dgrid dgrid dgrid .";
+    grid-gap: 1em;
+  }
+}

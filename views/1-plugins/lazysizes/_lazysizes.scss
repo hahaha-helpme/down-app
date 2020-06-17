@@ -1,0 +1,4 @@
+/* lazyload */
+img.lazyload:not([src]) {
+  visibility: hidden;
+}

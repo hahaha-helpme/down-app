@@ -1,0 +1,6 @@
+.serviceDetails
+  h2.serviceDetails__header-text= viewLocals.body.serviceDetails.text.header
+  p.serviceDetails__text
+    img.serviceDetails__logo-img(src= viewLocals.body.serviceDetails.images.service, alt= viewLocals.body.serviceDetails.alt.service)
+    each value in viewLocals.body.serviceDetails.text.paragraph
+      !=value

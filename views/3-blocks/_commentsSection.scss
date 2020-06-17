@@ -1,0 +1,76 @@
+.commentsSection{
+  
+}
+
+.commentsSection__header-text{
+  border-top: rgba(0, 0, 0, 0.4) 2px solid;
+}
+
+//hide captcha flag labe
+.grecaptcha-badge { 
+  visibility: hidden;
+}
+
+.just-comments.commentsSection__styling{
+    --border-color: rgba(0, 0, 0, 0.14);
+  
+    --primary-bg-color: #fff;
+    --secondary-bg-color: #ecebed;
+    --secondary-bg-color-lighter: rgba(236,235,237,0.2);
+  
+    --primary-color: #000;
+    --primary-color-lighter: rgba(105,121,248,0.1);
+    --primary-color-light: rgba(105,121,248,0.05);
+  
+    --primary-text-color: #000;
+    --secondary-text-color: #66606b;
+  
+    --outline-style: 0px;
+    --outline-offset: 3px;
+  
+    --button-border-radius: 4px;
+    --input-border-radius: 4px;
+    --bubble-border-radius: 10px;
+    --user-pic-border-radius: 50%;
+  
+    --textarea-height: 5em;
+    --input-height: 3em;
+    --large-button-height: 3em;
+    --small-button-height: 3em;
+    --input-border: 1px solid var(--border-color);
+  
+    --font-heading1-size: 1em;
+    --font-heading1-line-height: 1.6em;
+    --font-heading2-size: 1em;
+    --font-heading2-line-height: 1.6em;
+  
+    --font-button1-size: 1em;
+    --font-button1-line-height: 1.6em;
+    --font-button2-size: 1em;
+    --font-button2-line-height: 1.6em;
+    --font-button3-size: 1em;
+    --font-button3-line-height: 1.6em;
+  
+    --font-text1-size: 1em;
+    --font-text1-line-height: 1.6em;
+    --font-text2-size: 1em;
+    --font-text2-line-height: 1.6em;
+    --font-text3-size: 1em;
+    --font-text3-line-height: 1.6em;
+  
+    --primary-button-color: #fff;
+    --primary-button-bg-color: #648FFF;
+    --primary-button-hover-color: #fff;
+    --primary-button-hover-bg-color: #648FFF;
+    --primary-button-border: #648FFF;
+}
+
+// remove padding around whole comment section
+.rGwh_f3{
+  padding:0px !important;
+}
+
+// for the buttons 400 font weight
+._1DVgifv, .BXtvJgy._1mL7mm2{
+  font-weight:400 !important;
+}

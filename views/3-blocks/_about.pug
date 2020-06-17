@@ -1,0 +1,17 @@
+.about
+  h2.about__header-text= viewLocals.body.about.text.header
+  p.about__text
+    each value in viewLocals.body.about.text.paragraph 
+      !=value
+  ul.breadcrumb(itemscope='', itemtype='https://schema.org/BreadcrumbList')
+    each value in viewLocals.body.about.links.breadcrumb
+      if value !== viewLocals.body.about.links.breadcrumb[viewLocals.body.about.links.breadcrumb.length - 1]
+        li.breadcrumb__crumb(itemprop='itemListElement', itemscope='', itemtype='https://schema.org/ListItem')
+          a.breadcrumb__crumb-link(itemprop='item', href= value.link)
+            span.breadcrumb__crumb-span(itemprop='name')= value.anchor
+          meta(itemprop='position', content= value.position)
+      else
+        li.breadcrumb__crumb(itemprop='itemListElement', itemscope='', itemtype='https://schema.org/ListItem')
+          a.breadcrumb__crumb-link.breadcrumb__crumb-link_black-dec(itemprop='item')
+            span.breadcrumb__crumb-span(itemprop='name')= value.anchor
+          meta(itemprop='position', content= value.position)

@@ -1,0 +1,164 @@
+/* blur */
+.blur_blur-active {
+  filter: blur(5px);
+  transition: all .1s;
+}
+
+/* freeze */
+.body_freeze-active {
+  overflow-y: scroll;
+  width: 100%;
+}
+
+/* modal */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 1em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .1s;
+}
+
+.modal_visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__content {
+  background-color: #fff;
+  margin: auto;
+  padding: 0em 2em 1em 2em;
+  width: calc(100% - 6em);
+  max-height: calc(100% - 3em);
+  max-width: 40em;
+  overflow: scroll;
+}
+
+.modal__content::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.modal__hamburger-container {
+  height: 5em;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+.modal__hamburger_position {
+  margin-top: 0.8em;
+  right: 0;
+}
+
+
+
+/* geoLocation & positionPushing & countryLinking */
+.modal__geoLocation-lists,.modal__positionPushing-lists,.modal__countryAlternative-lists{
+  display:none;
+}
+
+.modal__geoLocation-lists_visible,.modal__positionPushing-lists_visible,.modal__countryAlternative-lists_visible{
+  display:block;
+}
+
+.modal__geoLocation-list,.modal__positionPushing-list,.modal__countryAlternative-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  grid-gap: 1em 2em;
+  list-style-type: none;
+  margin-bottom: 2em;
+}
+
+.modal__geoLocation-introduction,.modal__positionPushing-introduction,.modal__countryAlternative-introduction{
+  grid-row-start: span 4;
+  border-top: rgba(0, 0, 0, 0.4) 2px solid;
+}
+
+.modal__geoLocation-list-item,.modal__positionPushing-list-item,.modal__countryAlternative-list-item{
+  border-top: rgba(0, 0, 0, 0.14) 1px solid;
+  padding: 1em 0em;
+  display: flex;
+  align-items: center;
+}
+
+.modal__geoLocation-item-img,.modal__positionPushing-item-img,.modal__countryAlternative-item-img{
+  margin-right: 1em;
+  height: 1.5em;
+  width: 1.5em;
+  display: inline-block;
+}
+
+
+//- about
+.modal__about{
+  border-top: rgba(0, 0, 0, 0.4) 2px solid;
+  display:none;
+  margin-bottom: 3em;
+}
+
+.modal__about-img{
+  float:right;
+  width:56px;
+  height:56px;
+  margin: 1em 2em 1em 1em;
+}
+
+.modal__about_visible{
+  display:block;
+}
+
+//- reportProblem
+.modal__reportProblem{
+  display:none;
+}
+
+.modal__reportProblem_visible{
+  display:block;
+}
+
+.modal__reportProblem-header-text{
+border-top: rgba(0, 0, 0, 0.4) 2px solid;
+}
+
+.modal__reportProblem-description{
+  margin-top:2em;
+  display: flex;
+}
+
+.modal__reportProblem-description_invisible{
+  display: none;
+}
+
+.modal__reportProblem-description-text{
+  padding: 0.75em 1em;
+  border-radius: 4px;
+  border: rgba(0, 0, 0, 0.14) 1px solid;
+  width:50%;
+  max-width:15em;
+}
+
+.modal__reportProblem-description-text:focus {
+    outline:none;
+}
+
+.modal__reportProblem-description-button{
+  border: 1px solid #648FFF;
+  margin-left:1em;
+  padding: 0.75em 1em;
+  background-color: #648FFF;
+  border-radius: 4px;
+  color: #fff;
+  width:50%;
+  max-width:9em;
+  cursor: pointer;
+
+}

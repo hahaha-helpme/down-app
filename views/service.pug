@@ -1,0 +1,23 @@
+doctype html
+html(lang= viewLocals.doctype.language)
+  head
+    include ../views/2-base-blocks/_head.pug
+    link(rel='stylesheet', href='/dist/service.fd90bce3.css')
+    script(src='/dist/service.fa69aff7.js', defer='')
+  body
+    include ../views/2-base-blocks/_modal.pug
+    .blur
+      .grid
+        include ../views/3-blocks/_nav.pug
+        include ../views/3-blocks/_header.pug
+        include ../views/3-blocks/_downChart.pug
+        include ../views/3-blocks/_serviceDetails.pug
+        include ../views/3-blocks/_reportProblem.pug
+        include ../views/3-blocks/_advertisement.pug
+        include ../views/3-blocks/_commentsSection.pug
+        include ../views/3-blocks/_faq.pug
+        include ../views/3-blocks/_about.pug
+        include ../views/3-blocks/_cityPagesList.pug        
+    include ../views/2-base-blocks/_datalayer.pug
+
+      

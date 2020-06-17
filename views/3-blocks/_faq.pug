@@ -1,0 +1,10 @@
+.faq(itemscope='', itemtype='https://schema.org/FAQPage')
+  h2.faq__header-text= viewLocals.body.faq.text.header
+  each value in viewLocals.body.faq.text.accordion
+    .faq__question(itemscope='', itemprop='mainEntity', itemtype='https://schema.org/Question')
+      .faq__accordion
+        h3.faq__accordion-header-text(itemprop='name')!= value.question
+      .faq__panel(itemscope='', itemprop='acceptedAnswer', itemtype='https://schema.org/Answer')
+        p.faq__panel-text(itemprop='text')
+          each item in value.answer
+            !=item
