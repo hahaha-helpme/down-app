@@ -115,7 +115,7 @@ router.get('/', async (req, res, next) => {
 
     // ** about **
     const pageAbout = page.viewLocals.body.about
-    pageAbout.links.breadcrumb = page.getAboutBreadcrumb(req, res)
+    pageAbout.links.breadcrumb = page.getAboutBreadcrumb(req)
 
     // ** modal **
     const pageModal = page.viewLocals.body.modal
@@ -126,6 +126,10 @@ router.get('/', async (req, res, next) => {
     // ** advertisment **
 
     // ** commentSection ** 
+
+    // ** cityPagesList ** 
+    page.viewLocals.body.cityPagesList = await Service.getCityPagesList(req, res)
+
 
     page = page.toObject()
 

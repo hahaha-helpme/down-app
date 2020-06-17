@@ -1,23 +1,7 @@
+//- if (viewLocals.body.cityPagesList)
 .cityPagesList
-  h2.cityPagesList__header-text This are some alternative cities
-  ul.cityPagesList__unordered-list
-    li
-        a(href='https://www.w3schools.com') Amsterdam
-    li
-        a(href='https://www.w3schools.com') Rotterdam
-    li
-        a(href='https://www.w3schools.com') Dordrecht
-    li
-        a(href='https://www.w3schools.com') Haarlem
-    li
-        a(href='https://www.w3schools.com') Mumbai
-    li
-        a(href='https://www.w3schools.com') Jakata
-    li
-        a(href='https://www.w3schools.com') Westpoint
-    li
-        a(href='https://www.w3schools.com') Hoofddorp
-    li
-        a(href='https://www.w3schools.com') New York
-    li
-        a(href='https://www.w3schools.com') Miami        
+ h2.cityPagesList__header-text This are some alternative cities
+ ul.cityPagesList__unordered-list
+  each value in viewLocals.body.cityPagesList
+   li
+    a(href= value.link)= value.anchor

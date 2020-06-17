@@ -135,6 +135,28 @@ module.exports = {
           }
         },
 
+        cityPagesList: [{
+          link: 'https://www.w3schools.com',
+          anchor: 'Amsterdam',
+        },{
+          link: 'https://www.w3schools.com',
+          anchor: 'Mumbai',
+        },{
+          link: 'https://www.w3schools.com',
+          anchor: 'Haarlem',
+        },{
+          link: 'https://www.w3schools.com',
+          anchor: 'Kiev',
+        },{
+          link: 'https://www.w3schools.com',
+          anchor: 'Lissabon',
+        }],
+
+
+
+
+
+
         modal: {
           about: {
             text: {

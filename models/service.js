@@ -13,6 +13,7 @@ const modal = require('./blocks/modal.js')
 const commentsSection = require('./blocks/commentsSection.js')
 const advertisement = require('./blocks/advertisement.js')
 const datalayer = require('./blocks/datalayer.js')
+const cityPagesList = require('./blocks/cityPagesList.js')
 
 const serviceSchema = new mongoose.Schema({
   viewLocals: {
@@ -29,6 +30,7 @@ const serviceSchema = new mongoose.Schema({
       modal,
       advertisement,
       commentsSection,
+      cityPagesList,
       datalayer,
   },
   },

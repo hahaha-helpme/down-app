@@ -41,7 +41,7 @@ router.get('/', async (req, res, next)=> {
 
     // ** about **
     const pageAbout = page.viewLocals.body.about
-    pageAbout.links.breadcrumb = page.getAboutBreadcrumb(req, res)
+    pageAbout.links.breadcrumb = page.getAboutBreadcrumb(req)
 
     // ** serviceDownGrid **
     let pageServiceDownGrid = page.viewLocals.body.serviceDownGrid

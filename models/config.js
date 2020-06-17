@@ -13,6 +13,8 @@ const schemaAdditionalReferences = {
   seoCumulativeSearchVolume: 'viewLocals.body.datalayer.seo.cumulativeSearchVolume',
   nameCase: 'viewLocals.body.datalayer.service.nameCase',
   serviceNameHyphen: 'viewLocals.body.datalayer.service.nameHyphen',
+  serviceCityAsciiNameHyphen: 'viewLocals.body.datalayer.city.asciiNameHyphen',
+  serviceCityAsciiName: 'viewLocals.body.datalayer.city.asciiName',
   serviceLogoImage: 'viewLocals.body.datalayer.service.logoImage',
   serviceLogoImageAlt: 'viewLocals.body.datalayer.service.logoImageAlt',
 }
@@ -55,6 +57,9 @@ module.exports = function setSchemaFunctions (schema){
       require('./statics/getModalGeolocationFlags.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
       require('./statics/getModalCountryAlternativeFlags.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
       require('./statics/getModalPositionPushingFlags.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
+
+      // cityPagesList
+      require('./statics/getCityPagesList.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
 
       // datalayer
 }
