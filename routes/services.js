@@ -130,6 +130,7 @@ router.get('/', async (req, res, next) => {
     // ** cityPagesList ** 
     page.viewLocals.body.cityPagesList = await Service.getCityPagesList(req, res)
 
+    
 
     page = page.toObject()
 

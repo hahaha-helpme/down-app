@@ -39,21 +39,15 @@ const reportSchema = new mongoose.Schema({
     type: String,
     minlength: 0,
     maxlength: 100,
-  },
-  createdAt: { // verwijder dit in productie
-    type: Date,
-  },
-  updatedAt: {
-    type: Date,
-  },
+  }
 })
 
 reportSchema.set('autoIndex', false)
 reportSchema.set('autoCreate', false)
 reportSchema.set('minimize', false)
-// reportSchema.set('timestamps', {
-//   currentTime: () => new Date().toISOString() // dit is GMT+0000 en dus wat je nodig hebt
-// })
+reportSchema.set('timestamps', {
+  currentTime: () => new Date().toISOString() // dit is GMT+0000 en dus wat je nodig hebt
+})
 
 const schemaBaseReferences = {
   languageCode: 'languageCode',

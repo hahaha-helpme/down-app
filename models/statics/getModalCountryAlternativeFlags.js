@@ -11,9 +11,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
     const {
       countryFlagImg,
       countryFlagAlt,
-      languageEndonym,
-      seoCumulativeSearchVolume,
-      nameCase
+      languageEndonym
     } = schemaAdditionalReferences
 
     const {

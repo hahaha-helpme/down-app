@@ -11,16 +11,13 @@ module.exports = function(schema, schemaBaseReferences, schemaAdditionalReferenc
     const {
       countryFlagImg,
       countryFlagAlt,
-      languageEndonym,
-      seoCumulativeSearchVolume,
-      nameCase
+      languageEndonym
     } = schemaAdditionalReferences
 
     const {
       reqLanguageCode,
       reqCountryCode,
-      reqServiceName,
-      reqCityName
+      reqServiceName
     } = res.locals
 
     const {

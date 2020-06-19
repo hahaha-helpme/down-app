@@ -1,7 +1,7 @@
-//- if (viewLocals.body.cityPagesList)
-.cityPagesList
- h2.cityPagesList__header-text This are some alternative cities
- ul.cityPagesList__unordered-list
-  each value in viewLocals.body.cityPagesList
-   li
-    a(href= value.link)= value.anchor
+- if (viewLocals.body.cityPagesList.length !== 0)
+    .cityPagesList
+        h2.cityPagesList__header-text This are some alternative cities
+        ul.cityPagesList__unordered-list
+            each value in viewLocals.body.cityPagesList
+                li
+                    a(href= value.link)= value.anchor
