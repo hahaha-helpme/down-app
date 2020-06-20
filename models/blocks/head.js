@@ -2,6 +2,12 @@ module.exports = {
     canonical: String,
     title: String,
     description: String,
+    opengraph:{
+      title: String,
+      description: String,
+      url: String,
+      image: String,
+    },
     favicon:{
       appleTouchIcon: String,
       favicon32x32: String,

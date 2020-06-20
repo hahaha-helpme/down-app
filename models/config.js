@@ -30,8 +30,10 @@ module.exports = function setSchemaFunctions (schema){
 
       // head
       require('./virtuals/getHeadLanguage.js')(schema)
-      require('./statics/getHeadRelAlternate.js')(schema, schemaBaseReferences)
       require('./methods/getHeadCanonical.js')(schema)
+      require('./methods/getHeadOpengraphUrl.js')(schema)
+      require('./methods/getHeadOpengraphUrlImage.js')(schema) 
+      require('./statics/getHeadRelAlternate.js')(schema, schemaBaseReferences)
 
       // nav
       require('./methods/getNavlogoLink.js')(schema)

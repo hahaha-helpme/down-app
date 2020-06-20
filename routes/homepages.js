@@ -22,6 +22,8 @@ router.get('/', async (req, res, next)=> {
     // ** head **
     const pageHead = page.viewLocals.head
     pageHead.canonical = page.getHeadCanonical(req)
+    pageHead.opengraph.url = page.getHeadOpengraphUrl(req)
+    pageHead.opengraph.url.image = page.getHeadOpengraphUrlImage(req)
     pageHead.relAlternate = await Homepage.getHeadRelAlternate(req, res)
 
     // ** nav **

@@ -57,6 +57,7 @@ app.use(compression())
  app.use('/dist', express.static('dist'))
  app.use('/', express.static('dist/favicons'))
  app.use('/', express.static('dist/robots'))
+ app.use('/opengraph', express.static('dist/opengraph'))
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: false }))

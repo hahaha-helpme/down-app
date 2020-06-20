@@ -23,6 +23,12 @@ router.get('/', async (req, res, next) => {
           head: {
             canonical: seed.head_canonical,
             title: seed.head_title,
+            opengraph:{
+              title: seed.head_opengraph_title,
+              description: seed.head_opengraph_description,
+              url: seed.head_opengraph_url,
+              image: seed.head_opengraph_image,
+            },
             favicon:{
               appleTouchIcon: seed.head_favicon_appleTouchIcon,
               favicon32x32: seed.head_favicon_favicon32x32,

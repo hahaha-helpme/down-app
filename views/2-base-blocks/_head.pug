@@ -20,15 +20,16 @@ title= viewLocals.head.title
 //- description
 meta(name='description', content= viewLocals.head.description)
 
-//- (does not work yet - zelf toegevoegd meta(property='og:type', content='website'))
+//- opengraph
 meta(property='og:type', content='website')
 meta(property='og:image:height', content='1257')
 meta(property='og:image:width', content='2400')
-meta(property='og:description', content='This is the part that someone reads when they read it on facebook.')
-meta(property='og:url', content='http://example.com/')
-meta(property='og:image', content='http://example.com/og-image.jpg')
-meta(property='og:title', content='titel van de opengraph')
+meta(property='og:description', content= viewLocals.head.opengraph.description)
+meta(property='og:url', content= viewLocals.head.opengraph.url)
+meta(property='og:image', content= viewLocals.head.opengraph.image)
+meta(property='og:title', content=viewLocals.head.opengraph.title)
 
+//- favicon
 link(rel='apple-touch-icon', sizes='180x180', href= viewLocals.head.favicon.appleTouchIcon)
 link(rel='icon', type='image/png', sizes='32x32', href= viewLocals.head.favicon.favicon32x32)
 link(rel='icon', type='image/png', sizes='16x16', href= viewLocals.head.favicon.favicon16x16)

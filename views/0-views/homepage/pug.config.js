@@ -10,7 +10,12 @@ module.exports = {
         canonical: 'https://striped.com/at',
         title: 'Is this service down? Find out now',
         description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt asperiores qui tempora repudiandae?',
-        
+        opengraph:{
+          title:'titel van de opengraph',
+          description:'This is the part that someone reads when they read it on facebook.',
+          url:'http://example.com/',
+          image:'http://example.com/og-image.jpg',
+        },
         favicon:{
           appleTouchIcon: '../../../dist/favicons/apple-touch-icon.png',
           favicon32x32: '../../../dist/favicons/favicon-32x32.png',
