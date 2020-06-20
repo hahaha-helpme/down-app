@@ -1,14 +1,11 @@
 const express = require('express')
 const path = require('path')
-const dotenv = require('dotenv').config()
-const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const mongoose = require('mongoose')
-
+const dotenv = require('dotenv').config()
 const createError = require('http-errors')
 const compression = require('compression')
 const logger = require('morgan')
-
 
 const seedRouter = require('./routes/seeding/seedRouter') // verwijder mij later
 
@@ -57,7 +54,9 @@ app.use(helmet())
 app.use(compression())
 
 // serve static files
-app.use('/dist', express.static('dist'))
+ app.use('/dist', express.static('dist'))
+ app.use('/', express.static('dist/favicons'))
+ app.use('/', express.static('dist/robots'))
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: false }))

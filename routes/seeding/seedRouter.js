@@ -23,6 +23,13 @@ router.get('/', async (req, res, next) => {
           head: {
             canonical: seed.head_canonical,
             title: seed.head_title,
+            favicon:{
+              appleTouchIcon: seed.head_favicon_appleTouchIcon,
+              favicon32x32: seed.head_favicon_favicon32x32,
+              favicon16x16: seed.head_favicon_favicon16x16,
+              siteWebmanifest: seed.head_favicon_siteWebmanifest,
+              safariPinnedTab: seed.head_favicon_safariPinnedTab,
+            },
             description: seed.head_description,
             relAlternate: seed.head_relAlternate
           },

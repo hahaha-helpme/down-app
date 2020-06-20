@@ -10,6 +10,14 @@ module.exports = {
         canonical: 'https://striped.com/at',
         title: 'Is this service down? Find out now',
         description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt asperiores qui tempora repudiandae?',
+        
+        favicon:{
+          appleTouchIcon: '../../../dist/favicons/apple-touch-icon.png',
+          favicon32x32: '../../../dist/favicons/favicon-32x32.png',
+          favicon16x16: '../../../dist/favicons/favicon-16x16.png',
+          siteWebmanifest: '../../../dist/favicons/site.webmanifest',
+          safariPinnedTab: '../../../dist/favicons/safari-pinned-tab.svg',
+        },
         relAlternate: [{
           href: 'https://striped.com/at',
           hrefLang: 'de-AT'
