@@ -39,29 +39,17 @@ if (process.env.NODE_ENV === 'development') {
 mongoose.connection.on('error', err => {
   // logError(err); // echte functie van maken
 })
-// www to non www redirection
-function wwwRedirect(req, res, next) {
-  console.log(req.secure)
-  if (req.headers.host.slice(0, 4) === 'www.') {
-      let newHost = req.headers.host.slice(4);
-      return res.redirect(301, req.protocol + '://' + newHost + req.originalUrl);
+
+//redirecting http to https
+app.use (function (req, res, next) {
+  if (req.secure) {
+          // request was via https, so do no special handling
+          next();
+  } else {
+          // request was via http, so redirect to https
+          res.redirect('https://' + req.headers.host + req.url);
   }
-  next();
-};
-
-app.set('trust proxy', true);
-app.use(wwwRedirect);
-
-// redirecting http to https
-// app.use (function (req, res, next) {
-//   if (req.secure) {
-//           // request was via https, so do no special handling
-//           next();
-//   } else {
-//           // request was via http, so redirect to https
-//           res.redirect('https://' + req.headers.host + req.url);
-//   }
-// });
+});
 
 
 // view engine setup
