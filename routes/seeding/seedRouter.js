@@ -328,13 +328,13 @@ router.get('/', async (req, res, next) => {
     let e = mongoose.connection.db.dropCollection('reports', function(err, result) {})
     let f = mongoose.connection.db.dropCollection('services', function(err, result) {})
 
-    Promise.all([d,e,f])
+    await Promise.all([d,e,f])
 
     let a = Homepage.insertMany(homepageDataReadyForImport)
     let b = Report.insertMany(reportDataReadyForImport)
     let c = Service.insertMany(serviceDataReadyForImport)
 
-    Promise.all([a,b,c])
+    await Promise.all([a,b,c])
 
     res.send('Succesfully seeded database!')
   } catch (err) {

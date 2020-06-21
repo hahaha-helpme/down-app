@@ -6,7 +6,7 @@ const createError = require('http-errors')
 const Homepage = require('../models/homepage')
 const Service = require('../models/service')
 
-const homepageController = require('../views/0-views/homepage/pug.config.js')
+//const homepageController = require('../views/0-views/homepage/pug.config.js')
 
 router.get('/', async (req, res, next)=> {
   try{
