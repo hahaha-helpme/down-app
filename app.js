@@ -6,7 +6,6 @@ const dotenv = require('dotenv').config()
 const createError = require('http-errors')
 const compression = require('compression')
 const logger = require('morgan')
-const debugAgent = require('@google-cloud/debug-agent').start();
 
 const seedRouter = require('./routes/seeding/seedRouter') // verwijder mij later
 
