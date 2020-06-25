@@ -1,1 +1,12 @@
 runtime: nodejs10
+
+handlers:
+  # Make warm up request to an new instance
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+
+# Make warm up request to an new instance
+inbound_services:
+- warmup

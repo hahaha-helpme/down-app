@@ -14,6 +14,9 @@ const serviceRouter = require('./routes/services')
 
 const app = express()
 
+// App Engine terminates HTTPS connections at the load balancer
+app.enable('trust proxy');
+
 // print mongoose in dev env
 if (process.env.NODE_ENV === 'development') {
   mongoose.set('debug', true)
