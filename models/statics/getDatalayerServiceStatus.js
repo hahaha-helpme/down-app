@@ -7,6 +7,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
     const { type } = schemaAdditionalReferences;
 
     // deze waarde zouden eigenlijk in een soort config file moeten zitten
+
     const msPerMinute = 60000;
     const minutesInHour = 60;
     const hoursInDay = 24;

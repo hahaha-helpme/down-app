@@ -14,7 +14,11 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       const currentDate = new Date();
       const elapsedMinutesCurrentHour = currentDate.getMinutes();
       const lastDigit = +elapsedMinutesCurrentHour.toString().split("").pop();
-      return lastDigit
+      return lastDigit * 60000
+    }
+
+    const getCurrentSecondes = () =>{
+      return (Date.parse(new Date()) % (1000 * 60))
     }
 
     const query = {
@@ -29,12 +33,13 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       },
     };
 
+
     const group = {
       _id: {
         $toDate: {
           $subtract: [
             { $toLong: "$createdAt" }, 
-            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() * 60000] } }, 60000 * timeBlockLengthInMinutes] }],
+            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() + getCurrentSecondes()] } }, 60000 * timeBlockLengthInMinutes] }],
         },
       },
       count: { $sum: 1 },

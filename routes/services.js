@@ -26,12 +26,13 @@ router.get('/', async (req, res, next) => {
        reportsCountsArr.forEach(obj => {
          summedTotalCount += obj.count;
        })
-       
+
        const centerline = summedTotalCount/numberOfReports;
        const upperControlLimit = centerline + 3 * Math.sqrt(centerline);
-       const latestCountOfreports = reportsCountsArr[0].count
  
        // setting datalayer service status
+       const latestCountOfreports = reportsCountsArr[0].count
+
        if(upperControlLimit > latestCountOfreports){
          pageDatalayer.service.status = 0
        } else {
@@ -41,42 +42,56 @@ router.get('/', async (req, res, next) => {
          pageDatalayer.service.status = 0
      }
      
- 
      let timeReportsSequence = await Report.getDatalayerNumberOfReports(res); 
- 
+
      // deze waardes zouden eigenlijk in een config file moeten zitten
      const msPerMinute = 60000;
      const minutesInHour = 60;
      const timeBlockLengthInMinutes = 10;
      const selectionHours = 12; 
      const sequenceLength = (selectionHours * minutesInHour)/timeBlockLengthInMinutes ;
-    
+
      // if sequence is totally empty add current time
      if(timeReportsSequence.length === 0) {
-       timeReportsSequence.push({count:0, time:new Date().toISOString()})
+       timeReportsSequence.push({count : 0, time : new Date()})
      } else{
      // add 10 minutes to all times in sequence
      timeReportsSequence.forEach(date => {
        date.time = new Date(Date.parse(date.time) + (timeBlockLengthInMinutes * msPerMinute))
      })
      }
- 
-     // add missing dates to sequence
-     let maxTimeValue = Math.max.apply(Math, timeReportsSequence.map(function(object) { return Date.parse(object.time); }))
-     for (let i = 0; i < sequenceLength; i++) {
-       let sequenceDate = new Date(maxTimeValue - (i * msPerMinute * timeBlockLengthInMinutes)).toISOString();
-       let conditinal = timeReportsSequence.some(e => e.time === sequenceDate)
-       if(!conditinal){
+
+
+     //add missing x minute interval to sequence
+      let randomTimeOfSequence = Date.parse(timeReportsSequence[0].time)
+      let currentDate = new Date()
+
+      for (let i = 0; i < sequenceLength; i++) {
+       let sequenceDate = new Date(randomTimeOfSequence + (i * msPerMinute * timeBlockLengthInMinutes));
+       let inFutureCheck = Date.parse(currentDate) >= Date.parse(sequenceDate)
+       let alreadyInSequenceCheck = timeReportsSequence.some(e => Date.parse(e.time) === Date.parse(sequenceDate))
+       if(!alreadyInSequenceCheck && inFutureCheck){
          timeReportsSequence.push({count:0,time:sequenceDate})
        }  
      }
-    
+
+     for (let i = 0; i < sequenceLength; i++) {
+      let sequenceDate = new Date(randomTimeOfSequence - (i * msPerMinute * timeBlockLengthInMinutes));
+      let alreadyInSequenceCheck = timeReportsSequence.some(e => Date.parse(e.time) === Date.parse(sequenceDate))
+      if(!alreadyInSequenceCheck){
+        timeReportsSequence.push({count:0,time:sequenceDate})
+      }  
+    }
+
+
      // sort sequence
      timeReportsSequence.sort(function compare(b, a) {
        var dateA = new Date(a.time);
        var dateB = new Date(b.time);
        return dateA - dateB;
      });
+
+     console.log(timeReportsSequence)
  
      pageDatalayer.serviceView.downChart.timeReportsSequence = timeReportsSequence   
 

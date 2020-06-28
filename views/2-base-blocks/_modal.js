@@ -74,7 +74,7 @@ buttonsToOpenmodal().forEach(button => {
   const element = document.querySelector(button)
   if (element) {
     element.addEventListener('click', (event) => {
-      event.preventDefault()
+      //event.preventDefault()
       toggleModal()
       toggleModalContent(button)
       storeButton = button
@@ -84,21 +84,21 @@ buttonsToOpenmodal().forEach(button => {
 
 // close the modal with hamburger button click
 submitBtn.onclick = function (event) {
-  event.preventDefault()
+  //event.preventDefault()
   toggleModal()
   toggleModalContent(storeButton)
 }
 
 // close the modal with hamburger button click
 hamburgerBtn.onclick = function (event) {
-  event.preventDefault()
+  //event.preventDefault()
   toggleModal()
   toggleModalContent(storeButton)
 }
 
 // close the modal with window click
 window.onclick = function (event) {
-  event.preventDefault()
+  //event.preventDefault()
   if (event.target == modal) {
     toggleModal()
     toggleModalContent(storeButton)
@@ -116,7 +116,7 @@ const reportProblemDescriptionHeader = datalayer.serviceView.modal.reportProblem
 const reportProblemDescriptionParagraph = datalayer.serviceView.modal.reportProblem.paragraph
 
 reportProblemDescriptionButton.addEventListener('click', (event) => {
-  event.preventDefault()
+  //event.preventDefault()
 
   const reportData = {
     type:'report-with-description',

@@ -2,7 +2,7 @@ const reportProblemButton = document.querySelector('.reportProblem__button')
 let isReportButtonAlreadyclickedBefore = false;
 
 reportProblemButton.addEventListener('click', (event) => {
-  event.preventDefault()
+  //event.preventDefault()
   
   const reportData = {
     type:'report-without-description',
