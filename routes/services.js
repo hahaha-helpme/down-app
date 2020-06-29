@@ -10,6 +10,7 @@ const Homepage = require('../models/homepage')
 //const servicesController = require('../views/0-views/service/pug.config.js')
 
 router.get('/', async (req, res, next) => {
+
   try {
     let page = await Service.getViewLocals(res)
     if (!page) {next(createError(404, 'We can not find this page.'))}
@@ -20,61 +21,59 @@ router.get('/', async (req, res, next) => {
      // deze waardes zouden eigenlijk in een config file moeten zitten
      const msPerMinute = 60000;
      const minutesInHour = 60;
-     const timeBlockLengthInMinutes = 10;
-     const selectionHours = 12; 
-     const sequenceLength = (selectionHours * minutesInHour)/timeBlockLengthInMinutes ;
-     const hoursInDay = 24;
-     const selectionNumDays = 10;
+     const hoursInDay = 24;     
+     const selectionNumDays = 10;     
+     const intervalInMinutes = 10;
+     const sequenceCountForStatus = (selectionNumDays * hoursInDay * minutesInHour) / intervalInMinutes;
 
-
-     // finding upper control limit for c chart
-     let reportsCountsArr = await Report.getDatalayerServiceStatus(res)
-
-     if(reportsCountsArr.length !== 0){
-       let summedTotalCount = 0;
-       let sequenceLength = (hoursInDay * selectionNumDays * minutesInHour)/timeBlockLengthInMinutes
-
-       reportsCountsArr.forEach(obj => {
-         summedTotalCount += obj.count;
-       })
-
-       const centerline = summedTotalCount/sequenceLength;
-       const upperControlLimit = centerline + 20 * Math.sqrt(centerline);
-       
-       // setting datalayer service status
-       console.log(reportsCountsArr)
-       const latestCountOfreports = reportsCountsArr[0].count || 0
-
-       if(latestCountOfreports < upperControlLimit || latestCountOfreports < 5){
-         pageDatalayer.service.status = 0
-       } else {
-         pageDatalayer.service.status = 1
-       }
-     } else {
-         pageDatalayer.service.status = 0
-     }
+     let timeReportsSequence = await Report.getDatalayerServiceStatus(res); //await Report.getDatalayerNumberOfReports(res); 
      
-     let timeReportsSequence = await Report.getDatalayerNumberOfReports(res); 
-
-
-
      // if sequence is totally empty add current time
      if(timeReportsSequence.length === 0) {
        timeReportsSequence.push({count : 0, time : new Date()})
      } else{
      // add 10 minutes to all times in sequence
-     timeReportsSequence.forEach(date => {
-       date.time = new Date(Date.parse(date.time) + (timeBlockLengthInMinutes * msPerMinute))
-     })
+       timeReportsSequence.forEach(date => {
+         date.time = new Date(Date.parse(date.time) + (intervalInMinutes * msPerMinute))
+       })
      }
 
+     // finding upper control limit for c chart
+     //let reportsCountsArr = await Report.getDatalayerServiceStatus(res)
 
-     //add missing x minute interval to sequence
+     if(timeReportsSequence.length !== 0){
+      let summedTotalCount = 0;
+
+      timeReportsSequence.forEach(obj => {
+        summedTotalCount += obj.count;
+      })
+
+      const centerline = summedTotalCount/sequenceCountForStatus;
+      const upperControlLimit = centerline + 20 * Math.sqrt(centerline);
+      
+      // setting datalayer service status
+      const latestCountOfreports = timeReportsSequence[0].count || 0
+
+      if(latestCountOfreports < upperControlLimit || latestCountOfreports < 5){
+        pageDatalayer.service.status = 0
+      } else {
+        pageDatalayer.service.status = 1
+      }
+    } else {
+        pageDatalayer.service.status = 0
+    }
+
+      //add missing x minute interval to sequence
+      const selectionHours = 12; 
+      const sequenceLength = (selectionHours * minutesInHour)/intervalInMinutes;
       let randomTimeOfSequence = Date.parse(timeReportsSequence[0].time)
       let currentDate = new Date()
+      let currentDateMinus12Hours = Date.parse(currentDate) - selectionHours * minutesInHour * msPerMinute
+
+      timeReportsSequence = timeReportsSequence.filter(interval => Date.parse(interval.time) > currentDateMinus12Hours)
 
       for (let i = 0; i < sequenceLength; i++) {
-       let sequenceDate = new Date(randomTimeOfSequence + (i * msPerMinute * timeBlockLengthInMinutes));
+       let sequenceDate = new Date(randomTimeOfSequence + (i * msPerMinute * intervalInMinutes));
        let inFutureCheck = Date.parse(currentDate) >= Date.parse(sequenceDate)
        let alreadyInSequenceCheck = timeReportsSequence.some(e => Date.parse(e.time) === Date.parse(sequenceDate))
        if(!alreadyInSequenceCheck && inFutureCheck){
@@ -83,12 +82,14 @@ router.get('/', async (req, res, next) => {
      }
 
      for (let i = 0; i < sequenceLength; i++) {
-      let sequenceDate = new Date(randomTimeOfSequence - (i * msPerMinute * timeBlockLengthInMinutes));
+      let sequenceDate = new Date(randomTimeOfSequence - (i * msPerMinute * intervalInMinutes));
       let alreadyInSequenceCheck = timeReportsSequence.some(e => Date.parse(e.time) === Date.parse(sequenceDate))
       if(!alreadyInSequenceCheck){
         timeReportsSequence.push({count:0,time:sequenceDate})
       }  
     }
+
+    timeReportsSequence = timeReportsSequence.filter(interval => Date.parse(interval.time) > currentDateMinus12Hours)
 
 
      // sort sequence
@@ -98,8 +99,9 @@ router.get('/', async (req, res, next) => {
        return dateA - dateB;
      });
 
- 
-     pageDatalayer.serviceView.downChart.timeReportsSequence = timeReportsSequence   
+
+     pageDatalayer.serviceView.downChart.timeReportsSequence = timeReportsSequence
+
 
     // ** doctype ** 
     page.viewLocals.doctype.language = page.getHeadLanguage
@@ -113,7 +115,7 @@ router.get('/', async (req, res, next) => {
 
     // ** nav **
     const pageNav = page.viewLocals.body.nav
-    pageNav.links.logo = page.getNavlogoLink(req, res)
+    pageNav.links.logo = page.getNavLogoLink(req, res)
     pageNav.links.header = page.getNavHeaderLink(req, res)
     pageNav.images.logo = page.getNavLogoImg
     pageNav.images.flag = page.getNavCountryFlagImg

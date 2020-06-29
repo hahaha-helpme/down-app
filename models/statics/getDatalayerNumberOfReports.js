@@ -6,7 +6,8 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
 
     const { type } = schemaAdditionalReferences;
 
-    // deze waarde zouden eigenlijk in een soort config file moeten zitten    
+    // deze waarde zouden eigenlijk in een soort config file moeten zitten
+
     const timeBlockLengthInMinutes = 10;
     const selectionHours = 12;
 
@@ -47,7 +48,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
 
     const projection = {
       _id: 0,
-      time: "$_id",
+      time: "$_id", 
       count: 1,
     };
 

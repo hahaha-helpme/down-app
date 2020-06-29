@@ -50,7 +50,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
 
     const projection = {
       _id: 0,
-      //time: 0, // in development mode kan dit handig zijn "$_id"
+      time: "$_id", 
       count: 1,
     };
 

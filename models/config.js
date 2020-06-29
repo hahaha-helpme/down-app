@@ -1,4 +1,3 @@
-
 const schemaBaseReferences = {
   languageCode: 'viewLocals.body.datalayer.language.code',
   countryCode: 'viewLocals.body.datalayer.country.code',
@@ -36,7 +35,7 @@ module.exports = function setSchemaFunctions (schema){
       require('./statics/getHeadRelAlternate.js')(schema, schemaBaseReferences)
 
       // nav
-      require('./methods/getNavlogoLink.js')(schema)
+      require('./methods/getNavLogoLink.js')(schema)
       require('./methods/getNavHeaderLink.js')(schema)
       require('./virtuals/getNavLogoImg.js')(schema)
       require('./virtuals/getNavCountryFlagImg.js')(schema)
@@ -64,6 +63,8 @@ module.exports = function setSchemaFunctions (schema){
       require('./statics/getCityPagesList.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
 
       // datalayer
-}
+      require('./statics/getDatalayerNumberOfReports.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
+      require('./statics/getDatalayerServiceStatus.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
+    }
 
 

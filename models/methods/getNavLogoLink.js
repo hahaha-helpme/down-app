@@ -1,5 +1,5 @@
 module.exports = function (schema) {
-  schema.methods.getNavlogoLink = function (req, res) {
+  schema.methods.getNavLogoLink = function (req, res) {
     const {
       hostname,
       protocol,
