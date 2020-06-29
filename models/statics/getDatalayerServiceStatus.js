@@ -18,7 +18,11 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       const currentDate = new Date();
       const elapsedMinutesCurrentHour = currentDate.getMinutes();
       const lastDigit = +elapsedMinutesCurrentHour.toString().split("").pop();
-      return lastDigit
+      return lastDigit * 60000
+    }
+
+    const getCurrentSecondes = () =>{
+      return (Date.parse(new Date()) % (1000 * 60))
     }
     
     const query = {
@@ -29,6 +33,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       [cityName]: reqCityName,
       createdAt: {
         $gte: new Date(Date.now() - msPerMinute * minutesInHour * hoursInDay * selectionNumDays),
+        $lt: new Date(),
       },
     };
     
@@ -37,7 +42,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
         $toDate: {
           $subtract: [
             { $toLong: "$createdAt" }, 
-            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() * msPerMinute] } }, msPerMinute * intervalInMinutes] }],
+            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() + getCurrentSecondes()] } }, 60000 * intervalInMinutes] }],
         },
       },
       count: { $sum: 1 },

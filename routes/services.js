@@ -17,23 +17,35 @@ router.get('/', async (req, res, next) => {
      // ** datalayer **
      const pageDatalayer = page.viewLocals.body.datalayer
 
+     // deze waardes zouden eigenlijk in een config file moeten zitten
+     const msPerMinute = 60000;
+     const minutesInHour = 60;
+     const timeBlockLengthInMinutes = 10;
+     const selectionHours = 12; 
+     const sequenceLength = (selectionHours * minutesInHour)/timeBlockLengthInMinutes ;
+     const hoursInDay = 24;
+     const selectionNumDays = 10;
+
+
      // finding upper control limit for c chart
      let reportsCountsArr = await Report.getDatalayerServiceStatus(res)
+
      if(reportsCountsArr.length !== 0){
        let summedTotalCount = 0;
-       let numberOfReports = reportsCountsArr.length;
- 
+       let sequenceLength = (hoursInDay * selectionNumDays * minutesInHour)/timeBlockLengthInMinutes
+
        reportsCountsArr.forEach(obj => {
          summedTotalCount += obj.count;
        })
 
-       const centerline = summedTotalCount/numberOfReports;
-       const upperControlLimit = centerline + 3 * Math.sqrt(centerline);
- 
+       const centerline = summedTotalCount/sequenceLength;
+       const upperControlLimit = centerline + 20 * Math.sqrt(centerline);
+       
        // setting datalayer service status
-       const latestCountOfreports = reportsCountsArr[0].count
+       console.log(reportsCountsArr)
+       const latestCountOfreports = reportsCountsArr[0].count || 0
 
-       if(upperControlLimit > latestCountOfreports){
+       if(latestCountOfreports < upperControlLimit || latestCountOfreports < 5){
          pageDatalayer.service.status = 0
        } else {
          pageDatalayer.service.status = 1
@@ -44,12 +56,7 @@ router.get('/', async (req, res, next) => {
      
      let timeReportsSequence = await Report.getDatalayerNumberOfReports(res); 
 
-     // deze waardes zouden eigenlijk in een config file moeten zitten
-     const msPerMinute = 60000;
-     const minutesInHour = 60;
-     const timeBlockLengthInMinutes = 10;
-     const selectionHours = 12; 
-     const sequenceLength = (selectionHours * minutesInHour)/timeBlockLengthInMinutes ;
+
 
      // if sequence is totally empty add current time
      if(timeReportsSequence.length === 0) {
@@ -91,7 +98,6 @@ router.get('/', async (req, res, next) => {
        return dateA - dateB;
      });
 
-     console.log(timeReportsSequence)
  
      pageDatalayer.serviceView.downChart.timeReportsSequence = timeReportsSequence   
 

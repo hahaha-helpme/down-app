@@ -5,6 +5,7 @@ let timeReportsSequence = datalayer.serviceView.downChart.timeReportsSequence
 const localesOptions = {
   hour: '2-digit', 
   minute: '2-digit',
+  timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 };  
 
 const locales = {
