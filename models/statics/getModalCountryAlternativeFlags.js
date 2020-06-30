@@ -19,11 +19,6 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       reqCountryCode,
       reqServiceName
     } = res.locals
-    
-    const {
-      hostname,
-      protocol
-    } = req
 
     if(!reqServiceName) return null
 
@@ -44,7 +39,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       alt: `$${countryFlagAlt}`
     }
 
-    projection.link = { $concat: [protocol, '://', hostname, '/', `$${languageCode}`, '-', `$${countryCode}`] }
+    projection.link = { $concat: ['/', `$${languageCode}`, '-', `$${countryCode}`] }
 
     return this.aggregate([
       { $match: query },

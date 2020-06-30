@@ -15,6 +15,23 @@ router.get('/', async (req, res, next) => {
     let page = await Service.getViewLocals(res)
     if (!page) {next(createError(404, 'We can not find this page.'))}
 
+    let [
+      getDatalayerServiceStatusAndReportsResult,
+      getHeadRelAlternateResult,
+      getModalGeolocationFlagsResult,
+      getModalPositionPushingFlagsResult,
+      getModalCountryAlternativeFlagsResult,
+      getCityPagesListResult,
+    ] = await Promise.all([
+      Report.getDatalayerServiceStatusAndReports(res),
+      Service.getHeadRelAlternate(req, res),
+      Service.getModalGeolocationFlags(req, res),
+      Service.getModalPositionPushingFlags(req, res),
+      Homepage.getModalCountryAlternativeFlags(req, res),
+      Service.getCityPagesList(req, res),
+    ]);
+
+
      // ** datalayer **
      const pageDatalayer = page.viewLocals.body.datalayer
 
@@ -26,8 +43,10 @@ router.get('/', async (req, res, next) => {
      const intervalInMinutes = 10;
      const sequenceCountForStatus = (selectionNumDays * hoursInDay * minutesInHour) / intervalInMinutes;
 
-     let timeReportsSequence = await Report.getDatalayerServiceStatus(res); //await Report.getDatalayerNumberOfReports(res); 
-     
+     let timeReportsSequence = getDatalayerServiceStatusAndReportsResult
+
+     console.log(timeReportsSequence)
+
      // if sequence is totally empty add current time
      if(timeReportsSequence.length === 0) {
        timeReportsSequence.push({count : 0, time : new Date()})
@@ -111,7 +130,7 @@ router.get('/', async (req, res, next) => {
     pageHead.canonical = page.getHeadCanonical(req)
     pageHead.opengraph.url = page.getHeadOpengraphUrl(req)
     pageHead.opengraph.url.image = page.getHeadOpengraphUrlImage(req)
-    pageHead.relAlternate = await Service.getHeadRelAlternate(req, res)
+    pageHead.relAlternate = getHeadRelAlternateResult
 
     // ** nav **
     const pageNav = page.viewLocals.body.nav
@@ -144,18 +163,16 @@ router.get('/', async (req, res, next) => {
 
     // ** modal **
     const pageModal = page.viewLocals.body.modal
-    pageModal.geolocation.flags = await Service.getModalGeolocationFlags(req, res)
-    pageModal.positionPushing.flags = await Service.getModalPositionPushingFlags(req, res)
-    pageModal.countryAlternative.flags = await Homepage.getModalCountryAlternativeFlags(req, res)
+    pageModal.geolocation.flags = getModalGeolocationFlagsResult
+    pageModal.positionPushing.flags = getModalPositionPushingFlagsResult
+    pageModal.countryAlternative.flags = getModalCountryAlternativeFlagsResult
 
     // ** advertisment **
 
     // ** commentSection ** 
 
     // ** cityPagesList ** 
-    page.viewLocals.body.cityPagesList = await Service.getCityPagesList(req, res)
-
-    
+    page.viewLocals.body.cityPagesList = getCityPagesListResult
 
     page = page.toObject()
 
@@ -173,8 +190,8 @@ router.post('/report-problem', async (req, res, next) => {
     type,
     languageCode,
     countryCode,
-    nameHyphen,
-    cityName,
+    serviceNameHyphen,
+    cityAasciiNameHyphen,
     description
   } = req.body
 
@@ -182,15 +199,11 @@ router.post('/report-problem', async (req, res, next) => {
     type,
     languageCode,
     countryCode,
-    nameHyphen,
-    cityName,
+    serviceNameHyphen,
+    cityAasciiNameHyphen,
     description
     }).save()
 
-  res.status(200).end()
-})
-
-router.post('/report-problem-description', async (req, res, next) => {
   res.status(200).end()
 })
 

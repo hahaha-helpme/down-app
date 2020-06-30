@@ -5,10 +5,10 @@
   "scripts": {
     "start": "NODE_ENV=production node ./bin/www",
     "start-dev": "NODE_ENV=development node ./bin/www",
-    "buid-homepage-page-dev": "parcel build homepage.pug --out-dir ../../../dist --no-content-hash --no-minify --no-source-maps",
-    "buid-service-page-dev": "parcel build service.pug --out-dir ../../../dist --no-content-hash --no-minify --no-source-maps",
-    "buid-homepage-page-production": "parcel build homepage.pug --out-dir ../../../dist --no-content-hash",
-    "buid-service-page-production": "parcel build service.pug --out-dir ../../../dist --no-content-hash"
+    "buid-homepage-page-dev": "parcel build homepage.pug --out-dir ../../../dist --no-content-hash --no-minify",
+    "buid-service-page-dev": "parcel build service.pug --out-dir ../../../dist --no-content-hash --no-minify",
+    "buid-homepage-page-production": "parcel build homepage.pug --out-dir ../../../dist --no-content-hash --no-source-maps",
+    "buid-service-page-production": "parcel build service.pug --out-dir ../../../dist --no-content-hash --no-source-maps"
   },
   "dependencies": {
     "chart.js": "^2.9.3",

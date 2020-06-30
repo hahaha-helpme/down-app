@@ -21,11 +21,6 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
         reqCityName,
       } = res.locals
       
-      const {
-        hostname,
-        protocol
-      } = req
-  
       const query = {
         [languageCode]:reqLanguageCode,
         [countryCode]:reqCountryCode,
@@ -42,7 +37,7 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
         anchor: `$${serviceCityAsciiName}`,
       }
   
-      projection.link = { $concat: [protocol, '://', hostname, '/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${serviceNameHyphen}`, '/', `$${serviceCityAsciiNameHyphen}`] }
+      projection.link = { $concat: ['/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${serviceNameHyphen}`, '/', `$${serviceCityAsciiNameHyphen}`] }
   
       return this.aggregate([
         { $match: query },

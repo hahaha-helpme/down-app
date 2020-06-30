@@ -8,8 +8,8 @@ reportProblemButton.addEventListener('click', (event) => {
     type:'report-without-description',
     languageCode: datalayer.language.code,
     countryCode: datalayer.country.code,
-    nameHyphen: datalayer.service.nameHyphen,
-    cityName: datalayer.city.asciiNameHyphen,
+    serviceNameHyphen: datalayer.service.nameHyphen,
+    cityAasciiNameHyphen: datalayer.city.asciiNameHyphen,
     description: null,
   }
 

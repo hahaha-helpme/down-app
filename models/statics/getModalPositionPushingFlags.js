@@ -22,11 +22,6 @@ module.exports = function(schema, schemaBaseReferences, schemaAdditionalReferenc
       reqServiceName,
     } = res.locals
 
-    const {
-      hostname,
-      protocol
-    } = req
-
     if(!reqServiceName) return null
 
     const query = {
@@ -54,7 +49,7 @@ module.exports = function(schema, schemaBaseReferences, schemaAdditionalReferenc
     }
 
     projection.link = {
-      $concat: [protocol, '://', hostname, '/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${nameHyphen}`]
+      $concat: ['/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${nameHyphen}`]
     }
 
     const sort = {

@@ -1,16 +1,19 @@
 module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferences) {
-  schema.static("getDatalayerNumberOfReports", function (res) {
+  schema.static("getDatalayerServiceStatusAndReports", function (res) {
     const { reqLanguageCode, reqCountryCode, reqServiceName, reqCityName } = res.locals;
 
-    const { languageCode, countryCode, nameHyphen, cityName } = schemaBaseReferences;
+    const { languageCode, countryCode, serviceNameHyphen, cityAasciiNameHyphen } = schemaBaseReferences;
 
     const { type } = schemaAdditionalReferences;
 
     // deze waarde zouden eigenlijk in een soort config file moeten zitten
 
-    const timeBlockLengthInMinutes = 10;
-    const selectionHours = 12;
-
+    const msPerMinute = 60000;
+    const minutesInHour = 60;
+    const hoursInDay = 24;
+    const selectionNumDays = 10;
+    const intervalInMinutes = 10;
+    
     const getCurrentMinute = () =>{
       const currentDate = new Date();
       const elapsedMinutesCurrentHour = currentDate.getMinutes();
@@ -26,21 +29,20 @@ module.exports = function (schema, schemaBaseReferences, schemaAdditionalReferen
       [type]: "report-without-description",
       [languageCode]: reqLanguageCode,
       [countryCode]: reqCountryCode,
-      [nameHyphen]: reqServiceName,
-      [cityName]: reqCityName,
+      [serviceNameHyphen]: reqServiceName,
+      [cityAasciiNameHyphen]: reqCityName,
       createdAt: {
-        $gte: new Date(Date.now() - 60000 * 60 * selectionHours),
+        $gte: new Date(Date.now() - msPerMinute * minutesInHour * hoursInDay * selectionNumDays),
         $lt: new Date(),
       },
     };
-
-
+    
     const group = {
       _id: {
         $toDate: {
           $subtract: [
             { $toLong: "$createdAt" }, 
-            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() + getCurrentSecondes()] } }, 60000 * timeBlockLengthInMinutes] }],
+            { $mod: [{ $toLong: { $subtract: ["$createdAt", getCurrentMinute() + getCurrentSecondes()] } }, 60000 * intervalInMinutes] }],
         },
       },
       count: { $sum: 1 },

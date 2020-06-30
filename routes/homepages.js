@@ -13,6 +13,20 @@ router.get('/', async (req, res, next)=> {
 
     let page = await Homepage.getViewLocals(res)
     if (!page) {next(createError(404, 'We can not find this page.'))}
+
+    let [
+      getHeadRelAlternateResult, 
+      getServiceDownGridResult,
+      getModalGeolocationFlagsResult,
+      getModalPositionPushingFlagsResult,
+      getModalCountryAlternativeFlagsResult,
+    ] = await Promise.all([
+      Homepage.getHeadRelAlternate(req, res), 
+      Service.getServiceDownGrid(req, res),
+      Homepage.getModalGeolocationFlags(req, res),
+      Homepage.getModalPositionPushingFlags(req, res),
+      Homepage.getModalCountryAlternativeFlags(req, res),
+    ]);
     // ** datalayer **
     
 
@@ -24,11 +38,11 @@ router.get('/', async (req, res, next)=> {
     pageHead.canonical = page.getHeadCanonical(req)
     pageHead.opengraph.url = page.getHeadOpengraphUrl(req)
     pageHead.opengraph.url.image = page.getHeadOpengraphUrlImage(req)
-    pageHead.relAlternate = await Homepage.getHeadRelAlternate(req, res)
+    pageHead.relAlternate = getHeadRelAlternateResult
 
     // ** nav **
     const pageNav = page.viewLocals.body.nav
-    pageNav.links.logo = page.getNavlogoLink(req, res)
+    pageNav.links.logo = page.getNavLogoLink(req, res)
     pageNav.links.header = page.getNavHeaderLink(req, res)
     pageNav.images.logo = page.getNavLogoImg
     pageNav.images.flag = page.getNavCountryFlagImg
@@ -47,7 +61,7 @@ router.get('/', async (req, res, next)=> {
 
     // ** serviceDownGrid **
     let pageServiceDownGrid = page.viewLocals.body.serviceDownGrid
-    let servicesArr = await Service.getServiceDownGrid(req, res)
+    let servicesArr = getServiceDownGridResult
 
     servicesArr.forEach(service =>{
       service.status = 0
@@ -57,13 +71,12 @@ router.get('/', async (req, res, next)=> {
 
     // ** modal **
     const pageModal = page.viewLocals.body.modal
-    pageModal.geolocation.flags = await Homepage.getModalGeolocationFlags(req, res)
-    pageModal.positionPushing.flags = await Homepage.getModalPositionPushingFlags(req, res)
-    pageModal.countryAlternative.flags = await Homepage.getModalCountryAlternativeFlags(req, res)
-
+    pageModal.geolocation.flags = getModalGeolocationFlagsResult
+    pageModal.positionPushing.flags = getModalPositionPushingFlagsResult
+    pageModal.countryAlternative.flags = getModalCountryAlternativeFlagsResult
 
     page = page.toObject()
-    
+
     //res.json(page)
     //res.json(servicesController.locals)
     res.render('homepage', page);

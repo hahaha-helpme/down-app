@@ -24,13 +24,13 @@ const reportSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 2,
   },
-  nameHyphen: {
+  serviceNameHyphen: {
     type: String,
     required: true,
     minlength: 0,
     maxlength: 100,
   },
-  cityName: {
+  cityAasciiNameHyphen: {
     type: String,
     minlength: 0,
     maxlength: 100,
@@ -52,15 +52,14 @@ reportSchema.set('timestamps', {
 const schemaBaseReferences = {
   languageCode: 'languageCode',
   countryCode: 'countryCode',
-  nameHyphen: 'nameHyphen',
-  cityName: 'asciiNameHyphen',
+  serviceNameHyphen: 'serviceNameHyphen',
+  cityAasciiNameHyphen: 'cityAasciiNameHyphen',
 }
 
 const schemaAdditionalReferences = {
    type: 'type'
 }
 
-require('./statics/getDatalayerServiceStatus.js')(reportSchema, schemaBaseReferences,schemaAdditionalReferences)
-require('./statics/getDatalayerNumberOfReports.js')(reportSchema, schemaBaseReferences,schemaAdditionalReferences)
+require('./statics/getDatalayerServiceStatusAndReports.js')(reportSchema, schemaBaseReferences,schemaAdditionalReferences)
 
 module.exports = mongoose.model('Report', reportSchema)

@@ -63,8 +63,6 @@ module.exports = function setSchemaFunctions (schema){
       require('./statics/getCityPagesList.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
 
       // datalayer
-      require('./statics/getDatalayerNumberOfReports.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
-      require('./statics/getDatalayerServiceStatus.js')(schema, schemaBaseReferences, schemaAdditionalReferences)
     }
 
 

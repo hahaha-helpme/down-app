@@ -20,11 +20,6 @@ module.exports = function(schema, schemaBaseReferences, schemaAdditionalReferenc
       reqServiceName
     } = res.locals
 
-    const {
-      hostname,
-      protocol
-    } = req
-
     const query = {
       [cityName]: null,
       [nameHyphen]: reqServiceName,
@@ -44,11 +39,11 @@ module.exports = function(schema, schemaBaseReferences, schemaAdditionalReferenc
 
     if (reqServiceName) {
       projection.link = {
-        $concat: [protocol, '://', hostname, '/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${nameHyphen}`]
+        $concat: ['/', `$${languageCode}`, '-', `$${countryCode}`, '/', `$${nameHyphen}`]
       }
     } else {
       projection.link = {
-        $concat: [protocol, '://', hostname, '/', `$${languageCode}`, '-', `$${countryCode}`]
+        $concat: ['/', `$${languageCode}`, '-', `$${countryCode}`]
       }
     }
 
