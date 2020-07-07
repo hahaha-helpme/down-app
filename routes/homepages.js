@@ -10,7 +10,7 @@ const Service = require('../models/service')
 
 router.get('/', async (req, res, next)=> {
   try{
-
+    
     let page = await Homepage.getViewLocals(res)
     if (!page) {next(createError(404, 'We can not find this page.'))}
 
@@ -82,7 +82,10 @@ router.get('/', async (req, res, next)=> {
     res.render('homepage', page);
     //res.render('homepage',homepageController.locals);
   } catch (err){
-     console.error(err)
+    if (process.env.NODE_ENV === 'development') {
+      console.error(err)
+    }
+    next(createError(500, 'There was an error on the server and the request could not be completed.'))
   }
   
 });

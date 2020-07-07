@@ -32,14 +32,16 @@ if (process.env.NODE_ENV === 'development') {
     mongoose.set('useUnifiedTopology', true)
     await mongoose.connect(process.env.MONGODB_URI)
 
-    console.log('Connected to Mongoose')
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Connected to Mongoose')
+    }
   } catch (err) {
     console.error(err)
   }
 })()
 
 mongoose.connection.on('error', err => {
-  // logError(err); // echte functie van maken
+  logError(err);
 })
 
 // view engine setup
@@ -50,8 +52,12 @@ if (process.env.NODE_ENV === 'development') {
   app.use(logger('dev'))
 }
 
-// set security HTTP headers
+// set security HTTP headers - check on https://securityheaders.com/
+// some other ones are hard to implement or not don't increase security significant
 app.use(helmet())
+
+app.use(helmet.permittedCrossDomainPolicies())
+
 
 // gzip compression
 app.use(compression())
@@ -83,12 +89,14 @@ const putParamsOnLocals = (req, res, next) => {
   next()
 }
 
-app.use('/seed-the-database', seedRouter)
+if (process.env.NODE_ENV === 'development') {
+  app.use('/seed-the-database', seedRouter)
+}
 
 app.use(`/:languageCountry(${languageRegex}-${countryRegex})/:serviceName(${serviceRegex})/:cityName(${cityRegex})`, putParamsOnLocals, serviceRouter)
 app.use(`/:languageCountry(${languageRegex}-${countryRegex})/:serviceName(${serviceRegex})`, putParamsOnLocals, serviceRouter)
 app.use(`/:languageCountry(${languageRegex}-${countryRegex})|(${homepageRegex})`, putParamsOnLocals, homepageRouter)
-app.get(`/`, (req, res) => {301, res.redirect('/es-co')})
+app.get(`/`, (req, res) => {301, res.redirect('/en-us')})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

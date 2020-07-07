@@ -122,8 +122,8 @@ reportProblemDescriptionButton.addEventListener('click', (event) => {
     type:'report-with-description',
     languageCode: datalayer.language.code,
     countryCode: datalayer.country.code,
-    nameHyphen: datalayer.service.nameHyphen,
-    cityName: datalayer.city.asciiNameHyphen,
+    serviceNameHyphen: datalayer.service.nameHyphen,
+    cityAasciiNameHyphen: datalayer.city.asciiNameHyphen,
     description: document.querySelector('.modal__reportProblem-description-text').value
   }
 

@@ -11,6 +11,7 @@
     "buid-service-page-production": "parcel build service.pug --out-dir ../../../dist --no-content-hash --no-source-maps"
   },
   "dependencies": {
+    "@google-cloud/logging-winston": "^3.0.6",
     "chart.js": "^2.9.3",
     "compression": "^1.7.4",
     "debug": "^4.1.1",

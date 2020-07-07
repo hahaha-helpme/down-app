@@ -45,8 +45,6 @@ router.get('/', async (req, res, next) => {
 
      let timeReportsSequence = getDatalayerServiceStatusAndReportsResult
 
-     console.log(timeReportsSequence)
-
      // if sequence is totally empty add current time
      if(timeReportsSequence.length === 0) {
        timeReportsSequence.push({count : 0, time : new Date()})
@@ -58,8 +56,6 @@ router.get('/', async (req, res, next) => {
      }
 
      // finding upper control limit for c chart
-     //let reportsCountsArr = await Report.getDatalayerServiceStatus(res)
-
      if(timeReportsSequence.length !== 0){
       let summedTotalCount = 0;
 
@@ -85,12 +81,18 @@ router.get('/', async (req, res, next) => {
       //add missing x minute interval to sequence
       const selectionHours = 12; 
       const sequenceLength = (selectionHours * minutesInHour)/intervalInMinutes;
-      let randomTimeOfSequence = Date.parse(timeReportsSequence[0].time)
+
       let currentDate = new Date()
       let currentDateMinus12Hours = Date.parse(currentDate) - selectionHours * minutesInHour * msPerMinute
 
       timeReportsSequence = timeReportsSequence.filter(interval => Date.parse(interval.time) > currentDateMinus12Hours)
+      
+      if(timeReportsSequence.length === 0) {
+        timeReportsSequence.push({count : 0, time : new Date()})
+      } 
 
+      let randomTimeOfSequence = Date.parse(timeReportsSequence[0].time)
+  
       for (let i = 0; i < sequenceLength; i++) {
        let sequenceDate = new Date(randomTimeOfSequence + (i * msPerMinute * intervalInMinutes));
        let inFutureCheck = Date.parse(currentDate) >= Date.parse(sequenceDate)
@@ -107,9 +109,9 @@ router.get('/', async (req, res, next) => {
         timeReportsSequence.push({count:0,time:sequenceDate})
       }  
     }
-
+   
     timeReportsSequence = timeReportsSequence.filter(interval => Date.parse(interval.time) > currentDateMinus12Hours)
-
+    
 
      // sort sequence
      timeReportsSequence.sort(function compare(b, a) {
@@ -118,9 +120,7 @@ router.get('/', async (req, res, next) => {
        return dateA - dateB;
      });
 
-
      pageDatalayer.serviceView.downChart.timeReportsSequence = timeReportsSequence
-
 
     // ** doctype ** 
     page.viewLocals.doctype.language = page.getHeadLanguage
@@ -181,7 +181,10 @@ router.get('/', async (req, res, next) => {
     res.render('service', page);
     //res.render('service', servicesController.locals); 
   } catch (err) {
-    console.error(err)
+    if (process.env.NODE_ENV === 'development') {
+      console.error(err)
+    }
+    next(createError(500, 'There was an error on the server and the request could not be completed.'))
   }
 })
 
