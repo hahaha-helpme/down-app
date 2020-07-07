@@ -53,10 +53,24 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // set security HTTP headers - check on https://securityheaders.com/
-// some other ones are hard to implement or not don't increase security significant
+// some other ones are hard to implement or not don't increase security significant 
 app.use(helmet())
 
 app.use(helmet.permittedCrossDomainPolicies())
+
+// doesnt work yet
+// const uuidv4 = require('uuid/v4')
+
+// app.use(function (req, res, next) {
+//   res.locals.nonce = uuidv4()
+//   next()
+// })
+
+// app.use(helmet.contentSecurityPolicy({
+//   directives: {
+//     defaultSrc: [ "'self'",(req, res) => `'nonce-${res.locals.nonce}'`,'*.google.com','*.just-comments.com']
+//   }
+// }))
 
 
 // gzip compression

@@ -22,7 +22,8 @@
     "lazysizes": "^5.2.0",
     "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "uuidv4": "^6.1.1"
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
