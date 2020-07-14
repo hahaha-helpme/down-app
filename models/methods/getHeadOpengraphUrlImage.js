@@ -8,7 +8,7 @@ module.exports = function (schema) {
   
       const url = originalUrl.split('?').shift()
   
-      return `${protocol}://${hostname}/og-image.jpg`
+      return `${protocol}://${hostname}/opengraph/og-image.jpg`
     }
   }
   

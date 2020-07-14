@@ -129,7 +129,7 @@ router.get('/', async (req, res, next) => {
     const pageHead = page.viewLocals.head
     pageHead.canonical = page.getHeadCanonical(req)
     pageHead.opengraph.url = page.getHeadOpengraphUrl(req)
-    pageHead.opengraph.url.image = page.getHeadOpengraphUrlImage(req)
+    pageHead.opengraph.image = page.getHeadOpengraphUrlImage(req)
     pageHead.relAlternate = getHeadRelAlternateResult
 
     // ** nav **
