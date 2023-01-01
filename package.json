@@ -28,7 +28,7 @@
   "devDependencies": {
     "cssnano": "^4.1.10",
     "nodemon": "^2.0.4",
-    "parcel": "^1.12.4",
+    "parcel": "^2.8.2",
     "prettier": "2.0.5",
     "sass": "^1.26.3"
   }
